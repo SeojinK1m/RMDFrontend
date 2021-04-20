@@ -1,8 +1,12 @@
 import './App.css';
 import School from './School'
 import React, { useState, useEffect } from 'react'
+import AddButton from './AddButton'
+import { Button } from '@material-ui/core';
 
-function Home() {
+function Home(props) {
+
+  const { history } = props
 
   const [schools, setSchools] = useState([])
   const [search, setSearch] = useState('')
@@ -16,7 +20,6 @@ function Home() {
     const response = await (await fetch(`https://rmdservice.herokuapp.com/api/schools/?search=${query}`))
     const data = await response.json()
     setSchools(data.results)
-    console.log(schools)
   }
 
   const updateSearch = e => {
@@ -35,11 +38,14 @@ function Home() {
           <button type="submit" className="search-button">submit</button>
         </form>
         {schools.map(school => (
-          <School 
+          <School
+            history={history} 
             name={school.name} 
             url={school.url}
+            onClick={()=>history.push(school.url)}
           />
         ))}
+        <AddButton />
       </div>
   );
 }
