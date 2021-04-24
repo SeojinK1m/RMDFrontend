@@ -2,7 +2,6 @@ import './App.css';
 import School from './School'
 import React, { useState, useEffect } from 'react'
 import AddButton from './AddButton'
-import { Button } from '@material-ui/core';
 
 function Home(props) {
 
@@ -45,7 +44,7 @@ function Home(props) {
             onClick={()=>history.push(school.url)}
           />
         ))}
-        <AddButton />
+        <AddButton onClick={()=>history.push('add')}/>
       </div>
   );
 }
