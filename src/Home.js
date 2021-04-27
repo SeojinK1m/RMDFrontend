@@ -16,7 +16,7 @@ function Home(props) {
   },[query]);
 
   const getSchools = async () => {
-    const response = await (await fetch(`https://rmdservice.herokuapp.com/api/schools/?search=${query}`))
+    const response = await fetch(`https://rmdservice.herokuapp.com/api/schools/?search=${query}`)
     const data = await response.json()
     setSchools(data.results)
   }
