@@ -1,0 +1,25 @@
+.form {
+    border: seashell solid 8px;
+    width: 420px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 30px;
+}
+
+.input {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+
+.radio {
+
+}
+
+.slider {
+    width: 400px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
