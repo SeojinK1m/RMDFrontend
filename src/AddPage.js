@@ -13,18 +13,26 @@ function AddPage() {
     const [addReview, setAddReview] = useState(false)
 
     const handleSubmit = e => {
+
         e.preventDefault();
-        let data = {'name': schoolName, 'url': schoolName.replaceAll(/\s/g,'')}
-        alert(data.name+", "+data.url)
-        
+        let school = {'name': schoolName, 'url': schoolName.replaceAll(/\s/g,'')}
+        let eatery = {'name': eateryName, 'url': eateryName.replaceAll(/\s/g,''), 'eatery_type': addDin ? "din" : "res", 'school' : 0}
+
         fetch('https://rmdservice.herokuapp.com/api/schools/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(school)
         })
         .then(response=>response.json())
         .then(data=>{
-            alert(data)
+            eatery.school = data.id
+            if(addEatery) {
+                fetch('https://rmdservice.herokuapp.com/api/eateries/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(eatery)
+                })
+            }
         })
         .catch(error => {
             alert(error)
@@ -46,6 +54,7 @@ function AddPage() {
 
     const updateEateryName= e => {
         setEateryName(e.target.value)
+        console.log(eateryName)
     }
 
     const updateRadio = e => {
@@ -69,10 +78,10 @@ function AddPage() {
                         <input type="radio" value="din" class={style.radio} id="din" onChange={updateRadio} checked={addDin}/> Dining Hall
                         <input type="radio" value="res" class={style.radio} id="res" onChange={updateRadio} checked={!addDin}/> Restaurant
                         {addDin &&
-                            <input type="text" onChange={updateSchoolName} class={style.input} defaultValue="Dining hall name"/>
+                            <input type="text" onChange={updateEateryName} class={style.input} defaultValue="Dining hall name"/>
                         }
                         {!addDin &&
-                            <input type="text" onChange={updateSchoolName} class={style.input} defaultValue="Restaurant name"/>
+                            <input type="text" onChange={updateEateryName} class={style.input} defaultValue="Restaurant name"/>
                         }
                         Add review for {addDin ? "Dining Hall" : "Restaurant"}?
                         <Switch
