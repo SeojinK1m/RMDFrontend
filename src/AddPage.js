@@ -33,6 +33,9 @@ function AddPage() {
 
     const updateAddEatery = () =>  {
         setAddEatery(!addEatery)
+        if(!addEatery) {
+            setAddReview(false)
+        }
         console.log(addEatery)
     }
 
@@ -56,26 +59,28 @@ function AddPage() {
     return (
         <div className="App">
             <form onSubmit={handleSubmit} class={style.form}>
-                <input type="text" onChange={updateSchoolName} class={style.input}/>
+                School Name <input type="text" onChange={updateSchoolName} class={style.input} />
+                Add dining-hall or restaurant?
                 <Switch
                     onChange={updateAddEatery}
                 />
                 {addEatery && 
                     <div class={style.input}>
-                        <input type="radio" value="din" class={style.radio} id="din" onChange={updateRadio} checked={addDin}/>
-                        <input type="radio" value="res" class={style.radio} id="res" onChange={updateRadio} checked={!addDin}/>
+                        <input type="radio" value="din" class={style.radio} id="din" onChange={updateRadio} checked={addDin}/> Dining Hall
+                        <input type="radio" value="res" class={style.radio} id="res" onChange={updateRadio} checked={!addDin}/> Restaurant
                         {addDin &&
                             <input type="text" onChange={updateSchoolName} class={style.input} defaultValue="Dining hall name"/>
                         }
                         {!addDin &&
                             <input type="text" onChange={updateSchoolName} class={style.input} defaultValue="Restaurant name"/>
                         }
+                        Add review for {addDin ? "Dining Hall" : "Restaurant"}?
                         <Switch
                             onChange={updateAddReview}
                         />
                     </div>
                 }
-                {addReview &&
+                {addReview && addEatery &&
                     <div class={style.slider}>
                         <Slider
                             valueLabelDisplay="auto"
