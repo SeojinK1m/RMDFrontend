@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import style from './form.module.css'
 import Switch from '@material-ui/core/Switch';
 import Slider from '@material-ui/core/Slider';
-import { StylesProvider } from '@material-ui/styles';
 
 function AddPage() {
 
@@ -11,12 +10,15 @@ function AddPage() {
     const [addDin, setAddDin] = useState(true)
     const [eateryName, setEateryName] = useState('')
     const [addReview, setAddReview] = useState(false)
+    const [reviewComment, setReviewComment] = useState('')
+    const [numericReview, setNumericReview] = useState(0)
 
     const handleSubmit = e => {
 
         e.preventDefault();
         let school = {'name': schoolName, 'url': schoolName.replaceAll(/\s/g,'')}
         let eatery = {'name': eateryName, 'url': eateryName.replaceAll(/\s/g,''), 'eatery_type': addDin ? "din" : "res", 'school' : 0}
+        let review = {'comment': reviewComment, 'numeric_review': numericReview, 'eatery': 0}
 
         fetch('https://rmdservice.herokuapp.com/api/schools/', {
             method: 'POST',
@@ -31,6 +33,17 @@ function AddPage() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(eatery)
+                })
+                .then(response=>response.json())
+                .then(data=>{
+                    review.eatery = data.id
+                    if(addReview) {
+                        fetch('https://rmdservice.herokuapp.com/api/reviews/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(review)
+                        })
+                    }
                 })
             }
         })
@@ -61,8 +74,22 @@ function AddPage() {
         setAddDin(!addDin)
     }
 
-    const updateAddReview = () => {
+    const updateAddReview = e => {
         setAddReview(!addReview)
+    }
+
+    const updateReviewComment = e => {
+        setReviewComment(e.target.value)
+    }
+
+    const updateNumericReview = (e, val) => {
+        e.target.value = val
+        setNumericReview(val)
+        console.log(val)
+    }
+
+    const value = (value) => {
+        return value
     }
 
     return (
@@ -92,14 +119,17 @@ function AddPage() {
                 {addReview && addEatery &&
                     <div class={style.slider}>
                         <Slider
+                            id="reviewSlider"
                             valueLabelDisplay="auto"
                             marks={true}
                             min={1}
                             max={5}
                             step={1}
                             defaultValue={3}
+                            onChange={updateNumericReview}
                         />
-                        <textarea/>
+                        <p>Tell Us More About Your Experiences!</p>
+                        <textarea onChange={updateReviewComment}/>
                     </div>
                 }
                 <input type="submit" class={style.input}/>
