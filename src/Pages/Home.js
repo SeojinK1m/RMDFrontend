@@ -1,7 +1,7 @@
-import './App.css';
-import School from './School'
+import '../style/App.css';
+import School from '../Components/School'
 import React, { useState, useEffect } from 'react'
-import AddButton from './AddButton'
+import AddButton from '../Components/AddButton'
 
 function Home(props) {
 

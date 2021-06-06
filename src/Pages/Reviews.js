@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react' 
-import Review from './Review'
+import Review from '../Components/Review'
 
 const Reviews = (props) => {
 
@@ -8,20 +8,19 @@ const Reviews = (props) => {
     useEffect(()=>{
         getReviews()
     }, [])
-
     const getReviews = async () => {
-        const response = await fetch(`https://rmdservice.herokuapp.com/api/reviews/?search=${props.match.params.eateryUrl}`)
+        const response = await fetch(`https://rmdservice.herokuapp.com/api/reviews/?search=${props.match.params.eateryName}`)
         const data = await response.json()
         setReviews(data.results)
     }
 
     return (
         <div>
-            <h1>Reviews for {props.match.params.eateryUrl}</h1>
+            <h1>Reviews for {props.match.params.eateryName}</h1>
             {reviews.map(review=>(
                 <Review 
                     numeric_review = {review.numeric_review}
-                    commetn = {review.comment}
+                    comment = {review.comment}
                 />
             ))}
         </div>

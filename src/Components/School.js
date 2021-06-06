@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import style from './school.module.css'
+import style from '../style/school.module.css'
 
 function School(props) {
 

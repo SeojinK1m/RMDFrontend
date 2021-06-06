@@ -1,6 +1,7 @@
-import './App.css';
+import '../style/App.css';
 import React, {useEffect, useState} from 'react';
-import Eatery from './Eatery'
+import Eatery from '../Components/Eatery'
+import AddButton from '../Components/AddButton'
 
 function Eateries(props) {
 
@@ -44,10 +45,12 @@ function Eateries(props) {
             <Eatery 
                 name={eatery.name}
                 url={eatery.url}
+                id={eatery.id}
                 schoolUrl={schoolUrl}
-                onClick={()=>history.push(schoolUrl+"/"+eatery.url)}
+                onClick={()=>history.push(schoolUrl+"/"+eatery.name)}
             />
         ))}
+        <AddButton onClick={()=>history.push(schoolUrl+'/addeatery')}/>
     </div>
   );
 }

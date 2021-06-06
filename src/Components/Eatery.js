@@ -1,6 +1,6 @@
-import './App.css';
+import '../style/App.css';
 import React from 'react';
-import style from './eatery.module.css'
+import style from '../style/eatery.module.css'
 
 function Eatery(props) {
 

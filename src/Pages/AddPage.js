@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import style from './form.module.css'
+import style from '../style/form.module.css'
 import Switch from '@material-ui/core/Switch';
 import Slider from '@material-ui/core/Slider';
 
