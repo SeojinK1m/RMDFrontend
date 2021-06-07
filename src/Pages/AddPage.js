@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import style from '../style/form.module.css'
 import Switch from '@material-ui/core/Switch';
 import Slider from '@material-ui/core/Slider';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 function AddPage() {
 
@@ -95,25 +97,40 @@ function AddPage() {
     return (
         <div className="App">
             <form onSubmit={handleSubmit} class={style.form}>
-                School Name <input type="text" onChange={updateSchoolName} class={style.input} />
-                Add dining-hall or restaurant?
-                <Switch
-                    onChange={updateAddEatery}
-                />
+                <table>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class={style.input}>
+                    <TextField variant="standard" label="School Name" onChange={updateSchoolName} fullWidth={true}/>
+                    <p>
+                        Add dining-hall or restaurant?
+                        <Switch onChange={updateAddEatery}/>
+                    </p>
+                </div>
+                
+                
                 {addEatery && 
                     <div class={style.input}>
-                        <input type="radio" value="din" class={style.radio} id="din" onChange={updateRadio} checked={addDin}/> Dining Hall
-                        <input type="radio" value="res" class={style.radio} id="res" onChange={updateRadio} checked={!addDin}/> Restaurant
+                        <div>
+                            Type: 
+                            <input type="radio" value="din" class={style.radio} id="din" onChange={updateRadio} checked={addDin}/> Dining Hall
+                            <input type="radio" value="res" class={style.radio} id="res" onChange={updateRadio} checked={!addDin}/> Restaurant
+                        </div>
+                        
                         {addDin &&
-                            <input type="text" onChange={updateEateryName} class={style.input} defaultValue="Dining hall name"/>
+                            <TextField variant="standard" label="Dining Hall Name" onChange={updateEateryName} fullWidth={true}/>
                         }
                         {!addDin &&
-                            <input type="text" onChange={updateEateryName} class={style.input} defaultValue="Restaurant name"/>
+                            <TextField variant="standard" label="Restaurant Name" onChange={updateEateryName} fullWidth={true}/>
                         }
-                        Add review for {addDin ? "Dining Hall" : "Restaurant"}?
-                        <Switch
-                            onChange={updateAddReview}
-                        />
+                        <p>
+                            Add review for {addDin ? "Dining Hall" : "Restaurant"}?
+                            <Switch
+                                onChange={updateAddReview}
+                            />
+                        </p>
                     </div>
                 }
                 {addReview && addEatery &&
@@ -129,10 +146,14 @@ function AddPage() {
                             onChange={updateNumericReview}
                         />
                         <p>Tell Us More About Your Experiences!</p>
-                        <textarea onChange={updateReviewComment}/>
+                        <textarea onChange={updateReviewComment} cols="40" rows="10" class={style.textarea}/>
                     </div>
                 }
-                <input type="submit" class={style.input}/>
+                <div class={style.submitButton}>
+                    <Button variant="outlined" color="primary" type="submit">
+                        Submit
+                    </Button>
+                </div>
             </form>
         </div>  
     )

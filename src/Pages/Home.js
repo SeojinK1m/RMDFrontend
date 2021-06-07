@@ -2,6 +2,7 @@ import '../style/App.css';
 import School from '../Components/School'
 import React, { useState, useEffect } from 'react'
 import AddButton from '../Components/AddButton'
+import Chart from 'chart.js/auto'
 
 function Home(props) {
 
@@ -14,6 +15,7 @@ function Home(props) {
   useEffect(()=>{
      getSchools()
   },[query]);
+
 
   const getSchools = async () => {
     const response = await fetch(`https://rmdservice.herokuapp.com/api/schools/?search=${query}`)

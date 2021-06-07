@@ -15,12 +15,13 @@ const Reviews = (props) => {
     }
 
     return (
-        <div>
+        <div className="App">
             <h1>Reviews for {props.match.params.eateryName}</h1>
             {reviews.map(review=>(
                 <Review 
                     numeric_review = {review.numeric_review}
                     comment = {review.comment}
+                    eatery = {review.eatery}
                 />
             ))}
         </div>
